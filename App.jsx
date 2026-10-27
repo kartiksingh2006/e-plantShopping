@@ -1,31 +1,39 @@
-import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
-import AboutUs from "./components/AboutUs";
-import ProductList from "./components/ProductList";
-import CartItem from "./components/CartItem";
+import AboutUs from "./AboutUs";
+import ProductList from "./ProductList";
+import CartItem from "./CartItem";
 
 function Home() {
-  return (
-    <div className="landing-page">
-      <div className="landing-content">
-        <h1>Paradise Nursery</h1>
+  const [showProductList, setShowProductList] = useState(false);
 
-        <p>
-          Welcome to Paradise Nursery!
-        </p>
+  const handleGetStartedClick = () => {
+    setShowProductList(true);
+  };
+
+  if (showProductList) {
+    return <ProductList />;
+  }
+
+  return (
+    <div className="landing-page background-image">
+      <div className="landing-content">
+        <h1>Welcome To Paradise Nursery</h1>
 
         <p>
           Discover beautiful houseplants and bring a touch of nature
           into your home.
         </p>
 
-        <Link to="/plants">
-          <button className="get-started-btn">
-            Get Started
-          </button>
-        </Link>
+        <button
+          type="button"
+          className="get-started-btn"
+          onClick={handleGetStartedClick}
+        >
+          Get Started
+        </button>
       </div>
     </div>
   );
