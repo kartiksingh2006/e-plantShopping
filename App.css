@@ -7,7 +7,6 @@ body {
 
 .landing-page {
   min-height: 100vh;
-  background-image: url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -17,11 +16,20 @@ body {
   text-align: center;
 }
 
+/* Required class for the landing page background image */
+.background-image {
+  background-image: url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .landing-content {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 50px;
   border-radius: 15px;
   max-width: 600px;
+  margin: 20px;
 }
 
 .landing-content h1 {
@@ -50,32 +58,30 @@ body {
 }
 
 /* About Us */
-
-.about-us {
+.about-us-container {
   padding: 40px;
   max-width: 900px;
   margin: auto;
 }
 
-.about-us h1 {
+.about-us-container h1 {
   color: #2e7d32;
 }
 
-.about-us h2 {
+.about-us-container h2 {
   color: #388e3c;
 }
 
-.about-us p {
+.about-us-container p {
   font-size: 17px;
   line-height: 1.6;
 }
 
-.about-us li {
+.about-us-container li {
   margin: 10px 0;
 }
 
 /* Navbar */
-
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -93,4 +99,20 @@ body {
 
 .navbar a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .landing-content {
+    padding: 28px;
+  }
+
+  .landing-content h1 {
+    font-size: 34px;
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px;
+  }
 }
