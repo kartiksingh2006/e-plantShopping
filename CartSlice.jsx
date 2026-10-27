@@ -8,6 +8,22 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    addItem: (state, action) => {
+      const product = action.payload;
+      const existingItem = state.items.find((item) => item.id === product.id);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.items.push({
+          ...product,
+          cost: product.cost ?? product.price ?? 0,
+          quantity: 1,
+        });
+      }
+    },
+
+    // Backward-compatible alias for any existing components using addToCart.
     addToCart: (state, action) => {
       const product = action.payload;
       const existingItem = state.items.find((item) => item.id === product.id);
@@ -17,8 +33,6 @@ const cartSlice = createSlice({
       } else {
         state.items.push({
           ...product,
-          // Keep `cost` available for the cart UI while retaining `price`
-          // compatibility with the product list.
           cost: product.cost ?? product.price ?? 0,
           quantity: 1,
         });
@@ -43,7 +57,6 @@ const cartSlice = createSlice({
       state.items = state.items.filter((item) => item.name !== itemName);
     },
 
-    // Keep the existing actions for compatibility with other components.
     removeFromCart: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
@@ -58,7 +71,7 @@ const cartSlice = createSlice({
       if (!item) return;
 
       if (item.quantity <= 1) {
-        state.items = state.items.filter((cartItem) => cartItem.id !== action.payload);
+        state.items = state.items.filter((cartItem) => cartItem.id === action.payload);
       } else {
         item.quantity -= 1;
       }
@@ -67,6 +80,7 @@ const cartSlice = createSlice({
 });
 
 export const {
+  addItem,
   addToCart,
   updateQuantity,
   removeItem,
